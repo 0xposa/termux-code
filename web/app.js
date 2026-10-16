@@ -77,7 +77,6 @@
   const btnNewTerminal = document.getElementById("btn-new-terminal");
   const terminalWrapper = document.getElementById("terminal-wrapper");
   const btnTermClear = document.getElementById("btn-term-clear");
-  const btnTermReconnect = document.getElementById("btn-term-reconnect");
   const btnTermFocus = document.getElementById("btn-term-focus");
   const vkeyBar = document.getElementById("virtual-keyboard-bar");
   const terminalCmdInput = document.getElementById("terminal-cmd-input");
@@ -630,28 +629,29 @@
       cursorStyle: 'block',
       convertEol: false,
       fontSize: 13,
-      fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+      fontFamily: '"JetBrains Mono", "Fira Code", "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", monospace',
       theme: {
-        background: '#1e1e24',
-        foreground: '#abb2bf',
-        cursor: '#528bff',
-        selectionBackground: 'rgba(97, 175, 239, 0.3)',
-        black: '#282c34',
-        red: '#e06c75',
-        green: '#98c379',
-        yellow: '#e5c07b',
-        blue: '#61afef',
-        magenta: '#c678dd',
-        cyan: '#56b6c2',
-        white: '#abb2bf',
-        brightBlack: '#5c6370',
-        brightRed: '#be5046',
-        brightGreen: '#98c379',
-        brightYellow: '#d19a66',
-        brightBlue: '#61afef',
-        brightMagenta: '#c678dd',
-        brightCyan: '#56b6c2',
-        brightWhite: '#ffffff'
+        background: '#12151b',
+        foreground: '#d0d7de',
+        cursor: '#58a6ff',
+        cursorAccent: '#12151b',
+        selectionBackground: 'rgba(88, 166, 255, 0.22)',
+        black: '#21262d',
+        red: '#f85149',
+        green: '#3fb950',
+        yellow: '#d29922',
+        blue: '#58a6ff',
+        magenta: '#bc8cff',
+        cyan: '#39c5cf',
+        white: '#b1bac4',
+        brightBlack: '#6e7681',
+        brightRed: '#ff7b72',
+        brightGreen: '#56d364',
+        brightYellow: '#e3b341',
+        brightBlue: '#79c0ff',
+        brightMagenta: '#d2a8ff',
+        brightCyan: '#56d4dd',
+        brightWhite: '#f0f6fc'
       }
     });
 
@@ -1834,14 +1834,6 @@
         sendTerminalInput("clear\r");
       }
     };
-
-    btnTermReconnect.onclick = () => {
-      const session = getActiveTerminalSession();
-      if (session) {
-        connectSessionWebSocket(session, true);
-        showToast(`Menyambungkan ulang: ${session.title}`);
-      }
-    };
   }
 
   // --- 10. Horizontal Panel Resizer (Left-Right Split) ---
@@ -1925,8 +1917,8 @@
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const activeSession = getActiveTerminalSession();
-    const targetDir = activeSession ? activeSession.cwd : state.workspaceRoot;
+    // Simpan ke folder proyek yang lagi aktif
+    const targetDir = state.projectRoot || state.workspaceRoot || (getActiveTerminalSession() ? getActiveTerminalSession().cwd : state.homeRoot);
 
     const formData = new FormData();
     formData.append("targetDir", targetDir);
@@ -1934,7 +1926,7 @@
       formData.append("files", files[i]);
     }
 
-    showToast("Mengupload berkas ke terminal...");
+    showToast("Mengupload berkas ke folder proyek...");
 
     fetch("/api/files/upload", {
       method: "POST",
@@ -1947,9 +1939,10 @@
     .then(data => {
       const uploaded = data.uploaded || [];
       if (uploaded.length > 0) {
+        // Kirim path lengkap (absolut) dengan awalan @, misalnya @/data/data/com.termux/files/home/proyek/src/main.py
         const paths = uploaded.map(u => {
-          const fname = u.name;
-          return fname.includes(" ") ? `"${fname}"` : fname;
+          const absPath = u.path;
+          return absPath.includes(" ") ? `@"${absPath}"` : `@${absPath}`;
         }).join(" ");
 
         insertTextIntoCmdInput(paths);
@@ -1976,8 +1969,9 @@
       setTimeout(() => workspacePickerSearch.focus(), 100);
     }
 
-    const root = state.workspaceRoot || state.projectRoot;
-    fetch(`/api/files/tree?path=${encodeURIComponent(root)}&depth=3`)
+    // Ambil daftar berkas dari folder proyek aktif
+    const root = state.projectRoot || state.workspaceRoot || state.homeRoot;
+    fetch(`/api/files/tree?path=${encodeURIComponent(root)}&depth=4`)
       .then(res => res.json())
       .then(data => {
         state.workspaceFileList = [];
@@ -2024,7 +2018,7 @@
     const query = (workspacePickerSearch ? workspacePickerSearch.value : "").trim().toLowerCase();
     const list = state.workspaceFileList || [];
     const filtered = query
-      ? list.filter(f => f.name.toLowerCase().includes(query) || f.relativePath.toLowerCase().includes(query))
+      ? list.filter(f => f.name.toLowerCase().includes(query) || f.path.toLowerCase().includes(query) || f.relativePath.toLowerCase().includes(query))
       : list;
 
     if (filtered.length === 0) {
@@ -2044,14 +2038,16 @@
           ${getFileIconSvg(file.type, false)}
           <div style="overflow: hidden; text-align: left;">
             <div class="project-picker-item-name">${file.name}</div>
-            <div class="project-picker-item-path">${file.relativePath}</div>
+            <div class="project-picker-item-path">${file.path}</div>
           </div>
         </div>
       `;
 
       btn.onclick = () => {
         closeWorkspaceFilePicker();
-        const formattedPath = file.relativePath.includes(" ") ? `"${file.relativePath}"` : file.relativePath;
+        // Sisipkan path lengkap (absolut) dengan awalan @, misalnya @/data/data/com.termux/files/home/proyek/src/main.py
+        const absPath = file.path;
+        const formattedPath = absPath.includes(" ") ? `@"${absPath}"` : `@${absPath}`;
         insertTextIntoCmdInput(formattedPath);
         showToast(`Path disisipkan: ${file.name}`);
       };

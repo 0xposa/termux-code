@@ -35,6 +35,20 @@ class TestTermuxCodeBackend(unittest.TestCase):
         file_manager.delete_entry(test_file)
         self.assertFalse(os.path.exists(test_file))
 
+    def test_save_uploaded_file(self):
+        target_dir = "/data/data/com.termux/files/home/projects/termux-code"
+        fname = "test_upload_sample.txt"
+        test_content = b"Upload sample content"
+        res = file_manager.save_uploaded_file(target_dir, fname, test_content)
+        self.assertEqual(res["name"], fname)
+        self.assertTrue(os.path.isabs(res["path"]))
+        self.assertTrue(os.path.exists(res["path"]))
+        self.assertEqual(res["size"], len(test_content))
+
+        # Cleanup
+        if os.path.exists(res["path"]):
+            os.remove(res["path"])
+
     def test_pty_session(self):
         session = PtySession(cols=80, rows=24)
         session.start()

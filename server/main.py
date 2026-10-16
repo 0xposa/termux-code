@@ -183,16 +183,10 @@ async def upload_files(
     uploaded = []
     for f in files:
         safe_filename = os.path.basename(f.filename or "uploaded_file")
-        destination = os.path.join(resolved_dir, safe_filename)
         try:
             content = await f.read()
-            with open(destination, "wb") as out:
-                out.write(content)
-            uploaded.append({
-                "name": safe_filename,
-                "path": destination,
-                "size": len(content)
-            })
+            item = file_manager.save_uploaded_file(resolved_dir, safe_filename, content)
+            uploaded.append(item)
         except Exception as e:
             logger.error(f"Error saving uploaded file {safe_filename}: {e}")
             raise HTTPException(status_code=500, detail=f"Failed to save {safe_filename}: {str(e)}")

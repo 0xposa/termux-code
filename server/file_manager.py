@@ -211,3 +211,21 @@ def duplicate_entry(path: str) -> str:
         shutil.copy2(path, dst)
     return dst
 
+def save_uploaded_file(target_dir: str, filename: str, content: bytes) -> Dict[str, Any]:
+    safe_filename = os.path.basename(filename or "uploaded_file")
+    resolved_dir = os.path.abspath(target_dir) if (target_dir and target_dir.strip()) else ""
+    if not resolved_dir or not os.path.isdir(resolved_dir):
+        resolved_dir = os.environ.get(
+            "PROJECT_DIR",
+            os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        )
+    os.makedirs(resolved_dir, exist_ok=True)
+    destination = os.path.abspath(os.path.join(resolved_dir, safe_filename))
+    with open(destination, "wb") as out:
+        out.write(content)
+    return {
+        "name": safe_filename,
+        "path": destination,
+        "size": len(content)
+    }
+

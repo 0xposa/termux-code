@@ -23,6 +23,7 @@ print_banner() {
     clear 2>/dev/null || true
     echo -e "${CYAN}================================================================${RESET}"
     echo -e "${BOLD}${BLUE}  🚀 Termux Code - AI Agent CLI Installer${RESET}"
+    echo -e "  ${YELLOW}by @0xposa${RESET} (${CYAN}https://twitter.com/0xposa${RESET})"
     echo -e "${CYAN}================================================================${RESET}"
     echo -e "Pasang dan kelola AI Agent CLI terpopuler langsung di Termux:"
     echo -e " • ${BOLD}Antigravity CLI${RESET} (agy / Google Antigravity Agent)"

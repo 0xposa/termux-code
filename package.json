@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "0xposa (https://twitter.com/0xposa)",
+  "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
     "@codemirror/lang-css": "^6.3.1",

@@ -10,6 +10,12 @@
   <a href="#bahasa-indonesia">Bahasa Indonesia</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/0xposa/termux-code/releases"><img src="https://img.shields.io/badge/Release-v1.0-blue.svg" alt="Release v1.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"></a>
+  <a href="https://twitter.com/0xposa"><img src="https://img.shields.io/badge/Twitter-Follow%20%400xposa-1DA1F2?style=flat&logo=x&logoColor=white" alt="Twitter @0xposa"></a>
+</p>
+
 ---
 
 <a name="english"></a>
@@ -179,6 +185,14 @@ The `android/` directory contains a complete native Android Studio project wrapp
 
 ---
 
+### 🌐 Community & Follow Updates
+
+Stay connected for new releases, Android development tips, and AI agent workflows!
+- **Twitter / X**: Follow [@0xposa](https://twitter.com/0xposa) (`@0xposa`) for updates and project news.
+- **GitHub**: If you find Termux Code useful, please give it a star ⭐ on [GitHub](https://github.com/0xposa/termux-code)!
+
+---
+
 <a name="bahasa-indonesia"></a>
 ## 🇮🇩 Dokumentasi Bahasa Indonesia
 
@@ -308,6 +322,14 @@ Termux Code juga menyertakan proyek Android Studio lengkap di folder `android/`:
 
 ---
 
+### 🌐 Komunitas & Ikuti Pembuat
+
+Dapatkan pembaruan rilis terbaru, tips seputar Termux, dan alur kerja AI agent!
+- **Twitter / X**: Ikuti [@0xposa](https://twitter.com/0xposa) (`@0xposa`) untuk kabar proyek dan diskusi.
+- **GitHub**: Jika Anda merasa Termux Code bermanfaat, jangan lupa berikan bintang ⭐ di [GitHub](https://github.com/0xposa/termux-code)!
+
+---
+
 ## 📁 Struktur Direktori / Directory Structure
 
 ```text
@@ -348,7 +370,19 @@ python3 -m unittest discover tests
 
 ---
 
+## 👤 Author & Community / Pembuat & Komunitas
+
+<p align="center">
+  Crafted with ❤️ by <b>0xposa</b><br>
+  Follow for updates, Android dev tips, and AI agent guides:<br><br>
+  <a href="https://twitter.com/0xposa">
+    <img src="https://img.shields.io/badge/Twitter-Follow%20%400xposa-1DA1F2?style=for-the-badge&logo=x&logoColor=white" alt="Follow @0xposa on Twitter">
+  </a>
+</p>
+
+---
+
 ## 📄 Lisensi / License
 
-Distributed under the [ISC License](LICENSE).  
-Didistribusikan di bawah lisensi [ISC](LICENSE).
+This project is licensed under the **MIT License** - see the [`LICENSE`](LICENSE) file for details.  
+Proyek ini dilisensikan di bawah **Lisensi MIT** - lihat berkas [`LICENSE`](LICENSE) untuk informasi selengkapnya.

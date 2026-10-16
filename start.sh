@@ -10,6 +10,7 @@ HOST="${HOST:-0.0.0.0}"
 
 echo "======================================================"
 echo "  🚀 Termux Code - IDE & Terminal for Agent CLIs"
+echo "  ✨ by @0xposa (https://twitter.com/0xposa)"
 echo "======================================================"
 
 # Check Python environment

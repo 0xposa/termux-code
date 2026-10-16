@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.TermuxCode" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">#181a1f</item>
+        <item name="android:navigationBarColor">#181a1f</item>
+        <item name="android:windowBackground">#181a1f</item>
+    </style>
+</resources>

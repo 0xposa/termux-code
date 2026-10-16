@@ -54,8 +54,12 @@ class DuplicateEntryRequest(BaseModel):
 @app.get("/api/status")
 async def get_status():
     installed_agents = {}
-    for agent in ["antigravity-cli", "claude", "opencode", "aider", "git"]:
+    for agent in ["antigravity-cli", "agy", "claude", "opencode", "aider", "git"]:
         bin_path = shutil.which(agent)
+        if not bin_path and agent == "opencode":
+            local_opencode = os.path.expanduser("~/.opencode/bin/opencode")
+            if os.path.isfile(local_opencode) and os.access(local_opencode, os.X_OK):
+                bin_path = local_opencode
         installed_agents[agent] = {
             "installed": bin_path is not None,
             "path": bin_path

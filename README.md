@@ -127,6 +127,42 @@ flowchart TD
 
 ---
 
+### 🤖 Installing AI Agents (Antigravity CLI, Claude Code, OpenCode)
+
+Termux Code includes a dedicated, automated installer script (`install-agents.sh`) so anyone can install and set up the leading AI coding agents in Termux with a single command:
+
+#### Interactive Menu:
+```bash
+chmod +x install-agents.sh
+./install-agents.sh
+```
+This opens an easy-to-use menu where you can choose:
+- `[1]` Install **Antigravity CLI** (`agy` / `antigravity-cli`)
+- `[2]` Install **Claude Code** (`claude`)
+- `[3]` Install **OpenCode** (`opencode`)
+- `[4]` Install **ALL Agents** at once
+- `[5]` Check Installed Agents Status
+
+#### Direct Command Shortcuts:
+```bash
+# Install Antigravity CLI (Google Antigravity Agent)
+./install-agents.sh antigravity
+
+# Install Claude Code (Anthropic CLI Agent)
+./install-agents.sh claude
+
+# Install OpenCode (Open-Source Coding Agent)
+./install-agents.sh opencode
+
+# Install ALL three agents at once
+./install-agents.sh all
+
+# Check installation status and versions
+./install-agents.sh status
+```
+
+---
+
 ### 📱 Building the Standalone Android APK
 
 The `android/` directory contains a complete native Android Studio project wrapping the UI in a hardware-accelerated WebView:
@@ -220,6 +256,42 @@ Termux Code dibangun dengan arsitektur **Hybrid Client-Server** yang sangat ring
 
 ---
 
+### 🤖 Panduan Instalasi AI Agent (Antigravity CLI, Claude Code, OpenCode)
+
+Termux Code telah menyertakan skrip installer otomatis (`install-agents.sh`) agar siapa saja dapat memasang dan mengonfigurasi AI Agent CLI terpopuler di Termux dengan satu perintah mudah:
+
+#### Menggunakan Menu Interaktif:
+```bash
+chmod +x install-agents.sh
+./install-agents.sh
+```
+Perintah ini akan membuka menu interaktif:
+- `[1]` Pasang **Antigravity CLI** (`agy` / `antigravity-cli` dari Google)
+- `[2]` Pasang **Claude Code** (`claude` dari Anthropic)
+- `[3]` Pasang **OpenCode** (`opencode` AI Coding Agent)
+- `[4]` Pasang **SEMUA Agent** sekaligus
+- `[5]` Cek Status & Versi Agent yang Terpasang
+
+#### Perintah Cepat (One-Liner):
+```bash
+# Pasang Antigravity CLI
+./install-agents.sh antigravity
+
+# Pasang Claude Code
+./install-agents.sh claude
+
+# Pasang OpenCode
+./install-agents.sh opencode
+
+# Pasang SEMUA agent sekaligus
+./install-agents.sh all
+
+# Cek status dan versi yang sudah terpasang
+./install-agents.sh status
+```
+
+---
+
 ### 📱 Membangun Aplikasi Android Standalone (APK)
 
 Termux Code juga menyertakan proyek Android Studio lengkap di folder `android/`:
@@ -258,6 +330,7 @@ termux-code/
 ├── tests/                     # Backend Unit Tests
 │   └── test_backend.py        # PTY, File CRUD, & Endpoint tests
 ├── .gitignore                 # Git ignore rules
+├── install-agents.sh          # All-in-one AI Agent CLI automated installer
 ├── package.json               # CodeMirror bundler configuration
 ├── start.sh                   # One-click startup launcher
 └── README.md                  # Comprehensive Documentation
